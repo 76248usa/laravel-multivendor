@@ -66,8 +66,11 @@ Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])->name('ven
 //BRAND
 Route::middleware(['auth', 'role:admin'])->group(function(){
 Route::controller(BrandController::class)->group(function(){
-    Route::get('/add/brand', 'AllBrand')->name('all.brand');
+    Route::get('/all/brand', 'AllBrand')->name('all.brand');
+    Route::get('/add/brand', 'AddBrand')->name('add.brand');
+    Route::post('/brand/store', 'StoreBrand')->name('brand.store');
 });
+
 }); //End Middleware
 
 
