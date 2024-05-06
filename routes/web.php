@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Backend\BrandController;
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\SubCategoryController;
 
 
 Route::get('/', function () {
@@ -69,8 +71,35 @@ Route::controller(BrandController::class)->group(function(){
     Route::get('/all/brand', 'AllBrand')->name('all.brand');
     Route::get('/add/brand', 'AddBrand')->name('add.brand');
     Route::post('/brand/store', 'StoreBrand')->name('brand.store');
+    Route::get('/edit/brand/{id}', 'EditBrand')->name('edit.brand');
+    Route::post('/update/brand', 'UpdateBrand')->name('update.brand');
+    Route::get('/delete/brand/{id}', 'DeleteBrand')->name('delete.brand');
 });
+}); //End Middleware
 
+//Category
+Route::middleware(['auth', 'role:admin'])->group(function(){
+Route::controller(CategoryController::class)->group(function(){
+    Route::get('/all/category', 'AllCategories')->name('all.category');
+    Route::get('/add/category', 'AddCategory')->name('add.category');
+    Route::post('/category/store', 'StoreCategory')->name('category.store');
+    Route::get('/edit/category/{id}', 'EditCategory')->name('edit.category');
+    Route::post('/update/category', 'UpdateCategory')->name('update.category');
+    Route::get('/delete/category/{id}', 'DeleteCategory')->name('delete.category');
+    Route::get('/category/subcategories/{id}', 'ShowSubcategories')->name('category.subcategories');
+});
+}); //End Middleware
+
+//SubCategory
+Route::middleware(['auth', 'role:admin'])->group(function(){
+Route::controller(SubCategoryController::class)->group(function(){
+    Route::get('/all/subcategory', 'AllSubCategory')->name('all.subcategory');
+    Route::get('/add/subcategory', 'AddSubCategory')->name('add.subcategory');
+    Route::post('/subcategory/store', 'StoreSubCategory')->name('subcategory.store');
+    Route::get('/edit/subcategory/{id}', 'EditSubCategory')->name('edit.subcategory');
+    Route::post('/update/subcategory/{id}', 'UpdateSubcategory')->name('update.subcategory');
+    Route::get('/delete/subcategory/{id}', 'DeleteSubcategory')->name('delete.subcategory');
+});
 }); //End Middleware
 
 
