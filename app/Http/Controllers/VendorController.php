@@ -74,6 +74,34 @@ public function VendorUpdatePassword(Request $request){
         return back()->with("status","Password changed successfully");
 }
 
+    public function RegisterVendor(Request $request) {
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed'],
+        ]);
+
+        $user = User::insert([ 
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'vendor_join' => $request->vendor_join,
+            'password' => Hash::make($request->password),
+            'role' => 'vendor',
+            'status' => 'inactive',
+        ]);
+
+          $notification = array(
+            'message' => 'Vendor Registered Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('vendor.login')->with($notification);
+
+    }// End Mehtod 
+
 
     public function VendorDestroy(Request $request){
 
@@ -86,5 +114,63 @@ public function VendorUpdatePassword(Request $request){
 
         return redirect('/vendor/login');
     }
+    }
+
+    public function BecomeVendor(){
+        return view('auth.become_vendor');
+    }
+
+    public function InactiveVendor(){
+        $inActiveVendor = User::where('status','inactive')->where('role','vendor')->
+        latest()->get();
+        return view('backend.vendor.inactive_vendor', compact('inActiveVendor'));
+    }
+
+    public function ActiveVendor(){
+        $activeVendor = User::where('status','active')->where('role','vendor')->
+        latest()->get();
+        return view('backend.vendor.active_vendor', compact('activeVendor'));
+    }
+    public function InactiveVendorDetails($id){
+        $inactiveVendorDetails = User::findOrFail($id);
+        return view('backend.vendor.inactive_vendor_details', compact('inactiveVendorDetails'));
+    }
+   
+    public function ActiveVendorApprove(Request $request){
+        $vendor_id = $request->id;
+        //dd($vendor_id);
+        $user = User::findOrFail($vendor_id)->update([
+            'status' => 'active',
+        ]);
+
+        $notification = array(
+            'message' => 'Vendor Activated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('active.vendor')->with($notification);
+
+    }// End Mehtod 
+
+     public function ActiveVendorDetails($id){
+        $activeVendorDetails = User::findOrFail($id);
+        return view('backend.vendor.active_vendor_details', compact('activeVendorDetails'));
+    }
+
+    public function DeactivateVendorApprove(Request $request){
+
+        $vendor_id = $request->id;
+        //dd($vendor_id);
+        $user = User::findOrFail($vendor_id)->update([
+            'status' => 'inactive',
+        ]);
+
+        $notification = array(
+            'message' => 'Vendor Deactivated Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('inactive.vendor')->with($notification);
+
     }
 }

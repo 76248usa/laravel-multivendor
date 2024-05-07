@@ -53,7 +53,7 @@
 										<td>
 											<a href="{{ route('edit.category', $item->id) }}" class="btn btn-info">Edit</a>
                                         <a href="{{ route('delete.category', $item->id) }}" class="btn btn-danger" id="delete">Delete</a>
-										<a href="{{ route('category.subcategories', $item->id) }}" class="btn btn-info">Show Subcategories</a>
+										<a href="{{ route('category.subcategories', $item->id) }}" class="btn btn-info">Subcategories</a>
 										</td>
 										
 									</tr>

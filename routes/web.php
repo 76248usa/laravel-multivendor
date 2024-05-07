@@ -64,6 +64,11 @@ Route::middleware(['auth','role:vendor'])->group(function(){
 });
 Route::get('/admin/login', [AdminController::class, 'AdminLogin']);
 Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
+Route::get('become/vendor', [VendorController::class, 'BecomeVendor'])->name('become.vendor');
+Route::post('vendor/register', [VendorController::class, 'RegisterVendor'])->name('vendor.register');
+
+
+
 
 //BRAND
 Route::middleware(['auth', 'role:admin'])->group(function(){
@@ -100,7 +105,20 @@ Route::controller(SubCategoryController::class)->group(function(){
     Route::post('/update/subcategory/{id}', 'UpdateSubcategory')->name('update.subcategory');
     Route::get('/delete/subcategory/{id}', 'DeleteSubcategory')->name('delete.subcategory');
 });
-}); //End Middleware
+}); 
+
+//Vendor Active/Inactive
+
+Route::controller(VendorController::class)->group(function(){
+    Route::get('/inactive/vendor', 'InactiveVendor')->name('inactive.vendor');
+    Route::get('/active/vendor', 'ActiveVendor')->name('active.vendor');
+    Route::get('/inactive/vendor/details/{id}', 'InactiveVendorDetails')->name('inactive.vendor.details');   
+    Route::post('/active/vendor/approve' , 'ActiveVendorApprove')->name('active.vendor.approve'); 
+    Route::get('/active/vendor/details/{id}', 'ActiveVendorDetails')->name('active.vendor.details');
+    Route::post('/deactivate/vendor/approve' , 'DeactivateVendorApprove')->name('deactivate.vendor.approve');
+
+});
+
 
 
 
