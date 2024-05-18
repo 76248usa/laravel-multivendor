@@ -128,7 +128,12 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 Route::controller(ProductController::class)->group(function(){
     Route::get('/all/product', 'AllProduct')->name('all.product');
     Route::get('/add/product', 'AddProduct')->name('add.product');
-    
+    Route::post('/store/product', 'StoreProduct')->name('product.store');
+    Route::get('/edit/product/{id}', 'EditProduct')->name('edit.product');
+    Route::post('/update/product', 'UpdateProduct')->name('update.product');
+    Route::post('/update/product/thumbnail', 'UpdateProductThumbnail')->name('update.product.thumbnail');
+    Route::post('/update/product/multiimage', 'UpdateProductMultiImage')->name('update.product.multiimage');
+    Route::get('/product/multiimage/delete/{id}', 'MultiImageDelete')->name('product.multiimg.delete');
 });
 }); 
 

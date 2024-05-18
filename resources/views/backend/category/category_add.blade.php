@@ -90,7 +90,7 @@
 
 	</div>
     
-    {{-- <script type="text/javascript">
+     <script type="text/javascript">
     $(document).ready(function (){
         $('#myForm').validate({
             rules: {
@@ -117,7 +117,7 @@
         });
     });
     
-</script> --}}
+</script> 
 
  <script type="text/javascript">
         $(document).ready(function(){
