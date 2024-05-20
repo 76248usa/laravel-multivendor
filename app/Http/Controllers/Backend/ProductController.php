@@ -218,7 +218,7 @@ class ProductController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function ProductInactive($id){
+public function ProductInactive($id){
 
         Product::findOrFail($id)->update(['status' => 0]);
         $notification = array(
@@ -234,7 +234,6 @@ class ProductController extends Controller
       public function ProductActive($id){
 
         Product::findOrFail($id)->update(['status' => 1]);
-
         $notification = array(
             'message' => 'Product Active',
             'alert-type' => 'success'
@@ -244,23 +243,26 @@ class ProductController extends Controller
 
     }// End Method 
 
-    public function ProductDelete($id){ 
+    public function ProductDelete($id){
+
         $product = Product::findOrFail($id);
         unlink($product->product_thumbnail);
         Product::findOrFail($id)->delete();
 
-        $images = MultiImg::where('product_id',$id)->get();
-        foreach($images as $image){
-            unlink($image->photo_name);
+        $imges = MultiImg::where('product_id',$id)->get();
+        foreach($imges as $img){
+            unlink($img->photo_name);
             MultiImg::where('product_id',$id)->delete();
         }
+
         $notification = array(
             'message' => 'Product Deleted Successfully',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('all.product')->with($notification); 
-    }
+        return redirect()->back()->with($notification);
+
+    }// End Method 
 
 
 

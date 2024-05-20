@@ -9,7 +9,8 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
-
+use App\Http\Controllers\Backend\VendorProductController;
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 Route::get('/', function () {
     return view('frontend.index');
@@ -24,8 +25,8 @@ Route::post('user/update/password', [UserController::class, 'UserUpdatePassword'
 }); 
 
 
-Route::get('admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
-Route::get('vendor/dashboard', [VendorController::class, 'VendorDashboard'])->name('vendor.dashboard');
+Route::get('admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard')->middleware(RedirectIfAuthenticated::class);;
+Route::get('vendor/dashboard', [VendorController::class, 'VendorDashboard'])->name('vendor.dashboard')->middleware(RedirectIfAuthenticated::class);;
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -62,7 +63,16 @@ Route::middleware(['auth','role:vendor'])->group(function(){
     ->name('vendor.change.password');
     Route::post('vendor/update/password', [VendorController::class, 'VendorUpdatePassword'])
     ->name('update.password');
+
+Route::controller(VendorProductController::class)->group(function(){
+    Route::get('vendor/all/product', 'VendorAllProduct')->name('vendor.all.product');
+    
 });
+
+
+});
+
+
 Route::get('/admin/login', [AdminController::class, 'AdminLogin']);
 Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
 Route::get('become/vendor', [VendorController::class, 'BecomeVendor'])->name('become.vendor');
@@ -134,6 +144,9 @@ Route::controller(ProductController::class)->group(function(){
     Route::post('/update/product/thumbnail', 'UpdateProductThumbnail')->name('update.product.thumbnail');
     Route::post('/update/product/multiimage', 'UpdateProductMultiImage')->name('update.product.multiimage');
     Route::get('/product/multiimage/delete/{id}', 'MultiImageDelete')->name('product.multiimg.delete');
+    Route::get('/delete/product/{id}' , 'ProductDelete')->name('delete.product');
+    Route::get('/product/inactive/{id}' , 'ProductInactive')->name('product.inactive');
+    Route::get('/product/active/{id}' , 'ProductActive')->name('product.active');
 });
 }); 
 

@@ -1,5 +1,5 @@
-@extends('admin.admin_dashboard')
-@section('admin')
+@extends('vendor.vendor_dashboard')
+@section('vendor')
 <div class="page-content">
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -63,6 +63,7 @@
 		<span class="badge rounded-pill bg-danger"> {{ round($discount) }}%</span>
 			@endif
 					 </td>
+
 				<td> @if($item->status == 1)
 					<span class="badge rounded-pill bg-success">Active</span>
 					@else
@@ -71,17 +72,15 @@
 				   </td>
 
 				<td>
-
 <a href="{{ route('edit.product',$item->id) }}" class="btn btn-info" title="Edit Data"> <i class="fa fa-pencil"></i> </a>
+<a href="{{ route('delete.category',$item->id) }}" class="btn btn-danger" id="delete" title="Delete Data" ><i class="fa fa-trash"></i></a>
 
-<a href="{{ route('delete.product',$item->id) }}" class="btn btn-danger" id="delete" title="Delete Data" ><i class="fa fa-trash"></i></a>
 @if($item->status == 1)
-
-<a href="{{ route('product.inactive',$item->id) }}" class="btn btn-primary" title="Inactive"> <i class="fa-solid fa-thumbs-down"></i> </a>
+<a href="{{ route('product.inactive',$item->id) }}" class="btn btn-primary" title="Inactive"> 
+    <i class="fa-solid fa-thumbs-down"></i> </a>
 @else
-
 <a href="{{ route('product.active',$item->id) }}" class="btn btn-primary" title="Active"> 
-	<i class="fa-solid fa-thumbs-up"></i> </a>
+    <i class="fa-solid fa-thumbs-up"></i> </a>
 @endif
 
 				</td> 
