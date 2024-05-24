@@ -110,10 +110,8 @@ class ProductController extends Controller
     }
 
     public function UpdateProduct(Request $request){
-
-             $product_id = $request->id;
-
-             Product::findOrFail($product_id)->update([
+         $product_id = $request->id;
+          Product::findOrFail($product_id)->update([
 
             'brand_id' => $request->brand_id,
             'category_id' => $request->category_id,
@@ -136,22 +134,16 @@ class ProductController extends Controller
             'featured' => $request->featured,
             'special_offer' => $request->special_offer,
             'special_deals' => $request->special_deals, 
-
-
             'vendor_id' => $request->vendor_id,
             'status' => 1,
             'created_at' => Carbon::now(), 
-
         ]);
-
-
          $notification = array(
             'message' => 'Product Updated Without Image Successfully',
             'alert-type' => 'success'
         );
 
         return redirect()->route('all.product')->with($notification); 
-
     }// End Method 
 
     public function UpdateProductThumbnail(Request $request){

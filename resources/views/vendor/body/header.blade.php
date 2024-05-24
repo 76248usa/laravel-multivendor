@@ -1,4 +1,3 @@
-		
 		<header>
 
 			<div class="topbar d-flex align-items-center">
@@ -85,7 +84,7 @@
 												<div class="flex-grow-1">
 													<h6 class="msg-name">New Orders <span class="msg-time float-end">2 min
 												ago</span></h6>
-													<p class="msg-info">You have recieved new orders</p>
+													<p class="msg-info">You have recived new orders</p>
 												</div>
 											</div>
 										</a>
@@ -325,39 +324,20 @@
 						</ul>
 					</div>
 
-		{{-- @php
+		@php
 		$id = Auth::user()->id;
-		$vendor = App\Models\User::find($id);
-		@endphp
-		<div class="user-box dropdown">
-			<a class="d-flex align-items-center nav-link
-			 dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" 
-			 data-bs-toggle="dropdown" aria-expanded="false">
-
-				<img src="{{ (!empty($vendor->photo)) ? url('upload/vendor_images/'.$vendor->photo):url('upload/no_image.jpg') }}" class="user-img" alt="user avatar">
-
-				<div class="user-info ps-3">
-					<p class="user-name mb-0"><div>{{ Auth::user()->name }}</div></p>
-					<p class="designattion mb-0">{{ Auth::user()->username }}</p>
-				</div>
-			</a> --}}
-
-@php
-		$id = Auth::user()->id;
-		$vendor = App\Models\User::find($id);
+		$adminData = App\Models\User::find($id);
 		@endphp
 		<div class="user-box dropdown">
 			<a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-				{{-- <img  src="{{ (!empty($adminData->photo)) ? url('upload/admin_images/.$adminData->photo) : url('upload/no_image.jpg') }} --}}
-				<img src="{{ (!empty($vendor->photo)) ? url('upload/vendor_images/'.$vendor->photo):url('upload/no_image.jpg') }}" 
+				{{-- <img  src="{{ (!empty($vendor->photo)) ? url('upload/admin_images/.$adminData->photo) : url('upload/no_image.jpg') }} --}}
+				<img src="{{ (!empty($adminData->photo)) ? url('upload/admin_images/'.$adminData->photo):url('upload/no_image.jpg') }}" 
 				 class="user-img" alt="user avatar">
 				<div class="user-info ps-3">
 					<p class="user-name mb-0"><div>{{ Auth::user()->name }}</div></p>
 					<p class="designattion mb-0">{{ Auth::user()->username }}</p>
 				</div>
 			</a>
-
-
 			<ul class="dropdown-menu dropdown-menu-end">
 				<li><a class="dropdown-item" href="{{ route('vendor.profile') }}"><i class="bx bx-user"></i><span>Profile</span></a>
 				</li>
@@ -379,3 +359,4 @@
 				</nav>
 			</div>
 		</header>
+

@@ -66,10 +66,18 @@ Route::middleware(['auth','role:vendor'])->group(function(){
 
 Route::controller(VendorProductController::class)->group(function(){
     Route::get('vendor/all/product', 'VendorAllProduct')->name('vendor.all.product');
-    
+    Route::get('vendor/add/product', 'VendorAddProduct')->name('vendor.add.product');
+    Route::post('vendor/store/product', 'VendorStoreProduct')->name('vendor.store.product');
+    Route::get('vendor/subcategory/ajax/{category_id}' , 'VendorGetSubCategory');
+    Route::get('vendor/edit/product/{id}', 'VendorEditProduct')->name('vendor.edit.product');
+    Route::post('vendor/update/product/{id}', 'VendorUpdateProduct')->name('vendor.update.product');
+    Route::post('/vendor/update/thumbnail' , 'VendorUpdateThumbnail')->name('vendor.update.thumbnail');
+    Route::post('/vendor/update/multiimage' , 'VendorUpdateMultiImage')->name('vendor.update.multiimage');
+    Route::get('/vendor/product/multiimg/delete/{id}' , 'VendorMultiimgDelete')->name('vendor.product.multiimg.delete');
+    Route::get('/vendor/product/inactive/{id}' , 'VendorProductInactive')->name('vendor.product.inactive');
+    Route::get('/vendor/product/active/{id}' , 'VendorProductActive')->name('vendor.product.active');
+    Route::get('/vendor/delete/product/{id}' , 'VendorProductDelete')->name('vendor.delete.product');
 });
-
-
 });
 
 
@@ -77,9 +85,6 @@ Route::get('/admin/login', [AdminController::class, 'AdminLogin']);
 Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
 Route::get('become/vendor', [VendorController::class, 'BecomeVendor'])->name('become.vendor');
 Route::post('vendor/register', [VendorController::class, 'RegisterVendor'])->name('vendor.register');
-
-
-
 
 //BRAND
 Route::middleware(['auth', 'role:admin'])->group(function(){
@@ -130,6 +135,8 @@ Route::controller(VendorController::class)->group(function(){
     Route::post('/active/vendor/approve' , 'ActiveVendorApprove')->name('active.vendor.approve'); 
     Route::get('/active/vendor/details/{id}', 'ActiveVendorDetails')->name('active.vendor.details');
     Route::post('/deactivate/vendor/approve' , 'DeactivateVendorApprove')->name('deactivate.vendor.approve');
+  
+
 
 });
 
