@@ -6,13 +6,13 @@
 <div class="page-content"> 
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">Edit Category </div>
+					<div class="breadcrumb-title pe-3">Edit Slider </div>
 					<div class="ps-3">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
 								</li>
-								<li class="breadcrumb-item active" aria-current="page">Edit Category </li>
+								<li class="breadcrumb-item active" aria-current="page">Edit Slider </li>
 							</ol>
 						</nav>
 					</div>
@@ -29,40 +29,47 @@
 	<div class="card">
 		<div class="card-body">
 
-		<form id="myForm" method="post" action="{{ route('update.category') }}" enctype="multipart/form-data" >
+		<form id="myForm" method="post" action="{{ route('update.slider') }}" enctype="multipart/form-data" >
 			@csrf
 
-		 <input type="hidden" name="id" value="{{ $category->id }}">
-		 <input type="hidden" name="old_image" value="{{ $category->category_image }}">
+		 <input type="hidden" name="id" value="{{ $slider->id }}">
+		 <input type="hidden" name="old_image" value="{{ $slider->slider_image }}">
 
 
 			<div class="row mb-3">
 				<div class="col-sm-3">
-					<h6 class="mb-0">Category Name</h6>
+					<h6 class="mb-0">Slider Title</h6>
 				</div>
 				<div class="form-group col-sm-9 text-secondary">
-					<input type="text" name="category_name" class="form-control" value="{{ $category->category_name }}"   />
+					<input type="text" name="slider_title" class="form-control" value="{{ $slider->slider_title }}"   />
+				</div>
+			</div>
+
+            <div class="row mb-3">
+				<div class="col-sm-3">
+					<h6 class="mb-0">Slider Short Title</h6>
+				</div>
+				<div class="form-group col-sm-9 text-secondary">
+					<input type="text" name="short_title" class="form-control" value="{{ $slider->short_title }}"   />
 				</div>
 			</div>
 
 
 			<div class="row mb-3">
 				<div class="col-sm-3">
-					<h6 class="mb-0">Category Image </h6>
+					<h6 class="mb-0">Slider Image </h6>
 				</div>
 				<div class="col-sm-9 text-secondary">
-					<input type="file" name="category_image" class="form-control"  id="image"   />
+					<input type="file" name="slider_image" class="form-control"  id="image"   />
 				</div>
 			</div>
-
-
 
 			<div class="row mb-3">
 				<div class="col-sm-3">
 					<h6 class="mb-0"> </h6>
 				</div>
 				<div class="col-sm-9 text-secondary">
-  <img id="showImage" src="{{ asset($category->category_image)   }}" alt="Admin" style="width:100px; height: 100px;"  >
+  <img id="showImage" src="{{ asset($slider->slider_image)   }}" alt="Admin" style="width:100px; height: 100px;"  >
 				</div>
 			</div>
 
@@ -77,27 +84,23 @@
 		</form>
 
 	</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     $(document).ready(function (){
         $('#myForm').validate({
             rules: {
-                category_name: {
+                slider_title: {
                     required : true,
                 }, 
             },
             messages :{
-                category_name: {
-                    required : 'Please Enter Category Name',
+                slider_title: {
+                    required : 'Please Enter Slider Name',
                 },
             },
             errorElement : 'span', 
@@ -128,6 +131,7 @@
 	});
 </script>
 
+ 
     @endsection
 
 

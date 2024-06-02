@@ -26,7 +26,6 @@ class CategoryController extends Controller
         ]);
 
           $image = $request->file('category_image');
-        //@unlink(public_path('upload/brand/'.$data->photo));
         $name_gen = hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
         Image::make($image)->resize(300,300)->save('upload/category/'.$name_gen);
         $save_url = 'upload/category/'.$name_gen;
@@ -54,11 +53,7 @@ class CategoryController extends Controller
        $category_id = $request->id;
        $old_image = $request->old_image;
 
-    //    if(file_exists($old_image)){
-    //     unlink($old_image);
-    //    }
-
-       if($request->file('category_image')){
+     if($request->file('category_image')){
         $image = $request->file('category_image');
         //@unlink(public_path('upload/category/'.$category->photo));
         @unlink($old_image);
@@ -78,8 +73,7 @@ class CategoryController extends Controller
         );
 
          return redirect()->route('all.category')->with($notification); 
-
-
+         
        } else {
 
          Category::findOrFail($category_id)->update([

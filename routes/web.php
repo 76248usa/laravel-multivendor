@@ -10,6 +10,8 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\VendorProductController;
+use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 
 Route::get('/', function () {
@@ -80,7 +82,6 @@ Route::controller(VendorProductController::class)->group(function(){
 });
 });
 
-
 Route::get('/admin/login', [AdminController::class, 'AdminLogin']);
 Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
 Route::get('become/vendor', [VendorController::class, 'BecomeVendor'])->name('become.vendor');
@@ -127,7 +128,6 @@ Route::controller(SubCategoryController::class)->group(function(){
 
 
 //Vendor Active/Inactive
-
 Route::controller(VendorController::class)->group(function(){
     Route::get('/inactive/vendor', 'InactiveVendor')->name('inactive.vendor');
     Route::get('/active/vendor', 'ActiveVendor')->name('active.vendor');
@@ -156,6 +156,27 @@ Route::controller(ProductController::class)->group(function(){
     Route::get('/product/active/{id}' , 'ProductActive')->name('product.active');
 });
 }); 
+//Slider
+Route::controller(SliderController::class)->group(function(){
+    Route::get('/all/slider', 'AllSliders')->name('all.slider');
+    Route::get('/add/slider', 'AddSlider')->name('add.slider');
+    Route::post('/slider/store', 'StoreSlider')->name('store.slider');
+    Route::get('/edit/slider/{id}', 'EditSlider')->name('edit.slider');
+    Route::post('/update/slider', 'UpdateSlider')->name('update.slider');
+    Route::get('/delete/slider/{id}', 'DeleteSlider')->name('delete.slider');
+    Route::get('/category/subcategories/{id}', 'ShowSubcategories')->name('category.subcategories');
+});
+
+//Banner
+Route::controller(BannerController::class)->group(function(){
+    Route::get('/all/banner', 'AllBanners')->name('all.banner');
+    Route::get('/add/banner', 'AddBanner')->name('add.banner');
+    Route::post('/banner/store', 'StoreBanner')->name('store.banner');
+    Route::get('/edit/banner/{id}', 'EditBanner')->name('edit.banner');
+    Route::post('/update/banner', 'UpdateBanner')->name('update.banner');
+    Route::get('/delete/banner/{id}', 'DeleteBanner')->name('delete.banner');
+    Route::get('/category/subcategories/{id}', 'ShowSubcategories')->name('category.subcategories');
+});
 
 
 
